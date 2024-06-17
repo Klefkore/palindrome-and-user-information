@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!--Emily's Palindrome checker -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- name on tab-->
+    <title>Palindrome Checker</title>
+    <!--style of page using css-->
+    <style>
+        body {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; /*text font*/
+            text-align: center; /*where the text will be placed, in this case the center*/
+            align-items: center;/*so everything inside is aligned in the center*/
+            margin-top: 150px; /* space between container and searchbar */
+            background-color: #ae6d6da2;
+        }
+        .container {
+            width: 500px; /* size of container width wise*/
+            height: 425px; /* size of container height wise*/
+            text-align: center; /*where the text will be ... aligned*/
+            background-color: #f1b5b5; /*... background color...*/
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* the shadow around the box to give it more depth*/ 
+            display: inline-block; /* inline block for the container*/
+            border-radius: 15px; /*nice and rounded edges*/
+
+        }
+
+        #tomato {
+            background-color: #d09ccb; 
+            border: none; /* no border */
+            color: white; /* white text color */
+            padding: 10px 25px; /* padding inside the button */
+            text-align: center; /* center text alignment.. */
+            display: inline-block; /* inline block for button */
+            margin: 10px 0; /* margin around the button */
+            cursor: pointer; /* pointer cursor on hover */
+            border-radius: 5px; /* rounded corners */
+        }
+
+        #tomato:hover {
+            background-color: #b278b3; /*background color of the button once the mouse is on it*/
+        }
+
+    </style>
+</head>
+<body>
+    <!-- functionality of page using js using while, if and else and pop-up alerts-->
+    <div class="container">
+        <!--main header-->
+        <h1>Palindrome Checker</h1>
+        <!--button text and name of button-->
+        <button id="tomato" onclick="checkPalindrome()">Check a String</button>
+        <!--header for user information-->
+        <h2>User Information</h2>
+        <!-- form name-->
+        <form id="userForm">
+            <!--labels for first, last name and zipcode-->
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" required><br><br>
+    
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" required><br><br>
+    
+            <label for="zipCode">Zip Code:</label>
+            <input type="text" id="zipCode" name="zipCode" required><br><br>
+    
+            <input  type="button" id="fish" value="Submit" onclick="validateForm()">
+        </form>
+        <!--hidden message-->
+        <p id="message" class="hidden">Secret message: Congratulations, your inputs are valid!</p>
+        <p id="error" class="hidden"></p>
+    </div>
+
+    <script>
+        //function to check if a word is a palindrome
+        function checkPalindrome() {
+            //variable to control the loop
+            let continueLoop = true;
+            //loop to ask user for words
+            while (continueLoop) {
+                //so user can enter a string
+                let userInput = prompt("Enter a string (or press Cancel to stop):");
+                //if the user cancels the prompt, break the loop
+                if (userInput === null) {
+                    continueLoop = false;
+                    break;
+                }
+                //suppose to remove non alphanumeric characters and convert to lowercase...
+                let cleanedInput = userInput.replace(/[^A-Za-z0-9]/g, '').toLowerCase();
+                //...suppose to check if the string is the same forwards and backwards
+                let reversedInput = cleanedInput.split('').reverse().join('');
+
+                if (cleanedInput === reversedInput) {
+                //show message that word is a palindrome
+                    alert(`"${userInput}" SUCCESS! This is a palindrome!`);
+                } else {
+                //show  message that word is not a palindrome
+                    alert(`"${userInput}" Sadly, this isn't a palindrome.`);
+                }
+            }
+        }
+    </script>
+
+
+<head>
+    <style>
+        /*hidden message until form is filled out*/
+        .hidden {
+            display: none;
+        }
+
+        #fish {
+            background-color: #d09ccb; 
+            border: none; /* no border */
+            color: white; /* white text color */
+            padding: 10px 25px; /* padding inside the button */
+            text-align: center; /* center text alignment.. */
+            display: inline-block; /* inline block for button */
+            margin: 10px 0; /* margin around the button */
+            cursor: pointer; /* pointer cursor on hover */
+            border-radius: 5px; /* rounded corners */
+        }
+
+        #fish:hover {
+            background-color: #b278b3;
+        }
+    </style>
+</head>
+<body>
+   
+    <script>
+        //function to validate user form, first name, last name and zip code
+        function validateForm() {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const zipCode = document.getElementById('zipCode').value;
+            const fullName = firstName + ' ' + lastName;
+
+            let errorMessage = '';
+            //error message when name is more than 20 characters
+            if (fullName.length > 20) {
+                errorMessage += 'Full name must be 20 characters or less. ';
+            }
+            //error message if zip code has non-alphanumeric characters, less than and more than 5 numbers
+            const zipCodePattern = /^\d{5}$/;
+            if (!zipCodePattern.test(zipCode)) {
+                errorMessage += 'Zip code must be exactly 5 digits.';
+            }
+
+            const errorElement = document.getElementById('error');
+            const messageElement = document.getElementById('message');
+
+            if (errorMessage) {
+                errorElement.textContent = errorMessage;
+                errorElement.classList.remove('hidden');
+                messageElement.classList.add('hidden');
+            } else {
+                errorElement.classList.add('hidden');
+                messageElement.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+</body>
+</html>
